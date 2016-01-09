@@ -42,7 +42,7 @@ class Himawari8Image
     IMAGE_FILE
   end
 
-  def setDesktop image
+  def setDesktop(image)
     scpt = <<-SCPT
 tell application "System Events"
     set desktopCount to count of desktops
