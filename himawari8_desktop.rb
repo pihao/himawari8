@@ -46,8 +46,8 @@ class Himawari8Image
     scpt = <<-SCPT
 tell application "System Events"
     set desktopCount to count of desktops
-    repeat with desktopNumber from 1 to desktopCount
-        tell desktop desktopNumber
+    repeat with i from 1 to desktopCount
+        tell desktop i
             set picture to "#{image}"
         end tell
     end repeat
@@ -62,4 +62,14 @@ SCPT
 
 end
 
+def debug
+  system "echo '- - - - - - - - - - - -'"
+  system "date"
+  system "echo $USER"
+  system "echo $PATH"
+  system "ruby -v"
+  system "gem list | ag mini_magick"
+end
+
+# debug
 Himawari8Image.new.run

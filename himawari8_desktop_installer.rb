@@ -9,6 +9,7 @@ PLIST_FILE = PLIST_DIR + '/' + PLIST_FILE_NAME
 def install
   puts "Generate plist file..."
 
+  path = ENV['PATH']
   template = <<-XML
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -16,15 +17,16 @@ def install
 <dict>
     <key>Label</key>
     <string>#{PLIST_FILE_NAME}</string>
+    <key>EnvironmentVariables</key>
+    <dict>
+      <key>PATH</key>
+      <string>#{path}</string>
+    </dict>
     <key>ProgramArguments</key>
     <array>
         <string>#{APP_DIR}/#{PROGRAM_FILE_NAME}</string>
     </array>
-    <key>KeepAlive</key>
-    <false/>
     <key>RunAtLoad</key>
-    <true/>
-    <key>LowPriorityIO</key>
     <true/>
     <key>StartInterval</key>
     <integer>600</integer>
@@ -43,7 +45,7 @@ XML
 
   system "cp #{File.dirname(__FILE__)}/#{PROGRAM_FILE_NAME} #{APP_DIR}"
   system "chmod u+x #{APP_DIR}/#{PROGRAM_FILE_NAME}"
-  system "launchctl setenv PATH $HOME/bin:/usr/local/bin:$PATH"
+  # system "launchctl setenv PATH $HOME/bin:/usr/local/bin:$PATH"
   system "launchctl load #{PLIST_FILE}"
   system "launchctl start #{PLIST_FILE}"
 
