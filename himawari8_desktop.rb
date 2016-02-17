@@ -6,13 +6,16 @@ APP_DIR = ENV['HOME'] + '/.himawari8_desktop'
 require 'json'
 require 'net/http'
 require "mini_magick"
+require 'open-uri'
+require 'uri'
 
 def generateImage
   config_url = 'http://himawari8.nict.go.jp/img/D531106/latest.json'
   base_img_url = 'http://himawari8-dl.nict.go.jp/himawari8/img/D531106/2d/550/'
   # http://himawari8-dl.nict.go.jp/himawari8/img/D531106/2d/550/2016/01/08/035000_0_0.png
 
-  latest_date = JSON.parse(Net::HTTP.get(URI(config_url)))['date']
+  #latest_date = JSON.parse(Net::HTTP.get(URI(config_url)))['date']
+  latest_date = JSON.parse(open(config_url){|f|f.read})['date']
   file_name = APP_DIR + '/himawari8_' + latest_date.split(/[-| |:]/)[4] + '.png'
   format_date = latest_date.gsub("-", "/").gsub(" ", "/").gsub(":", "")
 
