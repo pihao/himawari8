@@ -65,7 +65,7 @@ Make sure you have installed `ImageMagick`:
     brew install imagemagick
     gem install mini_magick
 TIP
-puts "Please select (i)nstall or (u)ninstall:"
+puts "Please select: (i)nstall, (u)ninstall, (c)ancel:"
 case gets.chomp
 when 'i'
   install
