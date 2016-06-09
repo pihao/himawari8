@@ -9,7 +9,6 @@ PLIST_FILE = PLIST_DIR + '/' + PLIST_FILE_NAME
 def install
   puts "Generate plist file..."
 
-  path = ENV['PATH']
   template = <<-XML
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -20,7 +19,11 @@ def install
     <key>EnvironmentVariables</key>
     <dict>
       <key>PATH</key>
-      <string>#{path}</string>
+      <string>#{ENV['PATH']}</string>
+      <key>GEM_HOME</key>
+      <string>#{ENV['GEM_HOME']}</string>
+      <key>GEM_PATH</key>
+      <string>#{ENV['GEM_PATH']}</string>
     </dict>
     <key>ProgramArguments</key>
     <array>
@@ -45,32 +48,37 @@ XML
 
   system "cp #{File.dirname(__FILE__)}/#{PROGRAM_FILE_NAME} #{APP_DIR}"
   system "chmod u+x #{APP_DIR}/#{PROGRAM_FILE_NAME}"
-  # system "launchctl setenv PATH $HOME/bin:/usr/local/bin:$PATH"
   system "launchctl load #{PLIST_FILE}"
-  system "launchctl start #{PLIST_FILE}"
 
   puts "Install Complete."
 end
 
 def uninstall
   system "launchctl unload #{PLIST_FILE}"
-  system("rm #{PLIST_FILE}")
-  system("rm -rf #{APP_DIR}")
+  system "rm #{PLIST_FILE}"
+  system "rm -rf #{APP_DIR}"
   puts "Uninstall Complete."
 end
 
 
 puts <<-TIP
 Make sure you have installed `ImageMagick`:
-    brew install imagemagick
-    gem install mini_magick
+  $ brew install imagemagick
+  $ gem install mini_magick
+Please select:
+  (i)nstall
+  (u)ninstall
+  (r)einstall
+  (c)ancel
 TIP
-puts "Please select: (i)nstall, (u)ninstall, (c)ancel:"
 case gets.chomp
 when 'i'
   install
 when 'u'
   uninstall
+when 'r'
+  uninstall
+  install
 else
   puts "Nothing happed."
 end
