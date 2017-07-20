@@ -19,6 +19,7 @@ def generateImage
   file_name = APP_DIR + '/himawari8_' + latest_date.split(/[-| |:]/)[4] + '.png'
   format_date = latest_date.gsub("-", "/").gsub(" ", "/").gsub(":", "")
 
+  # for pieces of the earth image
   urls = [
     base_img_url + format_date + '_0_0.png',
     base_img_url + format_date + '_1_0.png',
@@ -26,13 +27,14 @@ def generateImage
     base_img_url + format_date + '_1_1.png'
   ]
 
+  # create a image and comine for pieces
   MiniMagick::Tool::Convert.new do |convert|
-    convert << "-size" << "1100x1100" << "xc:none"
+    convert << "-size" << "2134x1200" << "xc:black"
     convert << "-strip"
-    convert << urls[0] << "-geometry" << "+0+0" << "-composite"
-    convert << urls[1] << "-geometry" << "+550+0" << "-composite"
-    convert << urls[2] << "-geometry" << "+0+550" << "-composite"
-    convert << urls[3] << "-geometry" << "+550+550" << "-composite"
+    convert << urls[0] << "-geometry" << "+517+50" << "-composite"
+    convert << urls[1] << "-geometry" << "+1067+50" << "-composite"
+    convert << urls[2] << "-geometry" << "+517+600" << "-composite"
+    convert << urls[3] << "-geometry" << "+1067+600" << "-composite"
     convert << file_name
   end
 
