@@ -3,11 +3,9 @@
 
 ### Installation
 
-    $ brew install imagemagick
-    $ gem install mini_magick
-    $ ruby himawari8_desktop_installer.rb    # select `i`
+    $ brew ?
 
 
 ### Uninstallation
 
-    $ ruby himawari8_desktop_installer.rb    # select `u`
+    $ brew ?

@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+
+set -eu
+
+export APP_NAME=himawari8-desktop
+export TEST_PATH=github.com/pihao/$APP_NAME
+export LAST_GO_PATH=`echo $GOPATH | sed 's/.*\://g'`
+export CODE_DIR=$LAST_GO_PATH/src/$TEST_PATH
+export DIST_DIR=$CODE_DIR/dist
+
+# https://golang.org/doc/install/source#environment
+export _GOOS=darwin
+export _GOARCH=amd64
+
+
+if [ "$LAST_GO_PATH" == "" ]; then
+  echo "require GOPATH environment variable."
+  exit 0
+fi

@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+. $DIR/config
+
+mkdir -p $DIST_DIR
+rm -rf $DIST_DIR/*
+
+GOOS=$_GOOS GOARCH=$_GOARCH go build -o $DIST_DIR/$APP_NAME
+
+echo "build complete."
