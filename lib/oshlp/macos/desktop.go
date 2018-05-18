@@ -25,6 +25,5 @@ func ApplyDesktop(imagePath string, index int) {
     set picture to "%v"
   end tell
 end tell`, index+1, imagePath)
-	fmt.Println(scpt)
 	Osascript(scpt)
 }
