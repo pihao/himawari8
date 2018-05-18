@@ -50,7 +50,10 @@ type Wallpaper struct {
 }
 
 func NewWallpaper(multiple int) *Wallpaper {
-	latestDate := getLatestDate()
+	latestDate, err := getLatestDate()
+	if err != nil {
+		log.Fatalln(err)
+	}
 	return &Wallpaper{
 		Multiple: multiple,
 		Prefix:   formatImagePrefix(latestDate),
@@ -125,15 +128,15 @@ func formatImagePrefix(latestDate string) string {
 }
 
 // return example: "2018-05-16 23:50:00"
-func getLatestDate() string {
+func getLatestDate() (date string, err error) {
 	var payload struct {
 		Date string `json:"date"`
 	}
-	_, err := nethlp.GetJSON(&payload, "https://himawari8-dl.nict.go.jp/himawari8/img/D531106/latest.json", nil)
+	_, err = nethlp.GetJSON(&payload, "https://himawari8-dl.nict.go.jp/himawari8/img/D531106/latest.json", nil)
 	if err != nil {
-		return ""
+		return "", err
 	}
-	return payload.Date
+	return payload.Date, nil
 }
 
 func saveFile(url string, path string) error {
