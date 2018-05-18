@@ -1,4 +1,4 @@
-default:
+default: test build
 
 test:
 	./build/test
