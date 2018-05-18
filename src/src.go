@@ -18,7 +18,7 @@ import (
 	"github.com/pihao/himawari8-desktop/lib/oshlp/macos"
 )
 
-var workDir = fmt.Sprintf("%s/Applications/himawari8_desktop", os.Getenv("HOME"))
+var workDir = fmt.Sprintf("%s/.himawari8_desktop", os.Getenv("HOME"))
 
 func Run() {
 	if err := os.MkdirAll(workDir, 0755); err != nil {
