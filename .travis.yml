@@ -5,7 +5,7 @@ go:
   - "1.10.2"
 
 notifications:
-  email: false
+  email: change
 
 before_script:
   - go get golang.org/x/tools/cmd/goimports
