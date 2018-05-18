@@ -5,9 +5,10 @@
 
 ### Installation
 
-    $ brew ?
+    $ brew tap pihao/tap
+    $ brew install himawari8-desktop
 
 
 ### Uninstallation
 
-    $ brew ?
+    $ brew uninstall himawari8-desktop
