@@ -20,26 +20,26 @@ test: $(src)
 	@govulncheck ./...
 
 build_brew: $(src)
-	@go build -o $(app) -ldflags "\
-		-X 'github.com/pihao/himawari8/main.Version=$(ver)' \
-		-X 'github.com/pihao/himawari8/main.Commit=$(commit) $(gitstat)' \
-		-X 'github.com/pihao/himawari8/main.Ts=$(ts)'" \
+	go build -o $(app) -ldflags "\
+		-X 'main.Version=$(ver)' \
+		-X 'main.Commit=$(commit) $(gitstat)' \
+		-X 'main.Ts=$(ts)'" \
 		.
 
 build_amd64: test
-	@rm -f $(app) $(app)-darwin-amd64-*.tar.gz
+	@rm -f $(app) $(app)-*-darwin-amd64.tar.gz
 	@GOOS=darwin GOARCH=amd64 go build -o $(app) -ldflags "\
-		-X 'github.com/pihao/himawari8/main.Version=$(ver)' \
-		-X 'github.com/pihao/himawari8/main.Commit=$(commit) $(gitstat)' \
-		-X 'github.com/pihao/himawari8/main.Ts=$(ts)'" \
+		-X 'main.Version=$(ver)' \
+		-X 'main.Commit=$(commit) $(gitstat)' \
+		-X 'main.Ts=$(ts)'" \
 		.
-	@tar czvf $(app)-darwin-amd64-v$(ver).tar.gz $(dst)
+	@tar czvf $(app)-v$(ver)-darwin-amd64.tar.gz $(dst)
 
 build_arm64: test
-	@rm -f $(app) $(app)-darwin-arm64-*.tar.gz
+	@rm -f $(app) $(app)-*-darwin-arm64.tar.gz
 	@GOOS=darwin GOARCH=arm64 go build -o $(app) -ldflags "\
-		-X 'github.com/pihao/himawari8/main.Version=$(ver)' \
-		-X 'github.com/pihao/himawari8/main.Commit=$(commit) $(gitstat)' \
-		-X 'github.com/pihao/himawari8/main.Ts=$(ts)'" \
+		-X 'main.Version=$(ver)' \
+		-X 'main.Commit=$(commit) $(gitstat)' \
+		-X 'main.Ts=$(ts)'" \
 		.
-	@tar czvf $(app)-darwin-arm64-v$(ver).tar.gz $(dst)
+	@tar czvf $(app)-v$(ver)-darwin-arm64.tar.gz $(dst)
