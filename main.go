@@ -18,6 +18,7 @@ import (
 	"net/http"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"strconv"
 	"strings"
 	"time"
@@ -266,16 +267,23 @@ func GetMacOSDesktopCount() (count int, err error) {
 	return c, nil
 }
 
-func ApplyMacOSWallpaper(imagePath string, index int) {
+func ApplyMacOSWallpaper(imagePath string, index int) error {
+	abs, err := filepath.Abs(imagePath)
+	if err != nil {
+		return HitErrorf("failed to get image absolute path: rel=%v, err=%w", imagePath, err)
+	}
+
 	script := fmt.Sprintf(`
 tell application "System Events"
   tell desktop %v
     set picture to "%v"
   end tell
-end tell`, index+1, imagePath)
+end tell`, index+1, abs)
+
 	if output, err := Osascript(script); err != nil {
-		glog.Errorf("failed to apply wallpaper: output=%v, err=%v", output, err)
+		return HitErrorf("failed to apply wallpaper: output=%v, err=%w", output, err)
 	}
+	return nil
 }
 
 func Osascript(script string) (output string, err error) {
