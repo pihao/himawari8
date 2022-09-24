@@ -7,8 +7,9 @@
 
     $ brew tap pihao/tap
     $ brew install himawari8
-
+    $ brew services start himawari8
 
 ### Uninstallation
 
     $ brew uninstall himawari8
+    $ brew untap pihao/tap
