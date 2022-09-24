@@ -1,6 +1,7 @@
 /vendor
 /log
 /var
-/dist
+
+/himawari8*
 
 test.json

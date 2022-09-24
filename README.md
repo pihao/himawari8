@@ -1,14 +1,14 @@
-# Himawari8 Desktop for Mac
+# Himawari8 wallpaper for MacOS
 
-[![Build Status](https://travis-ci.org/pihao/himawari8-desktop.svg?branch=master)](https://travis-ci.org/pihao/himawari8-desktop)
+[![build](https://github.com/pihao/himawari8/actions/workflows/build.yml/badge.svg)](https://github.com/pihao/himawari8/actions/workflows/build.yml)
 
 
 ### Installation
 
     $ brew tap pihao/tap
-    $ brew install himawari8-desktop
+    $ brew install himawari8
 
 
 ### Uninstallation
 
-    $ brew uninstall himawari8-desktop
+    $ brew uninstall himawari8
